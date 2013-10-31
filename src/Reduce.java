@@ -14,12 +14,17 @@ public class Reduce extends Thread {
 	}
  
 	public void run() {
-		buffer.consumeWord();
+		try {
+			buffer.consumeWord();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void invertedIndex(String fileName, int lineNum, String word){
 		if(invertedIndex.containsValue(word)){
-			invertedIndex.get(word).insert(new Tuple(filename, lineNum));
+			invertedIndex.get(word).insert(new Tuple(filename, lineNum)); //needs to be fixed
 		}
 		else{
 			// create new ArrayList

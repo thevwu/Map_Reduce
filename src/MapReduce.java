@@ -25,8 +25,8 @@ public class MapReduce {
 
 	    for(int i = 0; i < n; i++){
 	    	Reduce reduceThread = new Reduce(n);
-	    	reduces.add(reduceThread);
 	    	reduceThread.start();
+	    	reduces.add(reduceThread);
 	    	try {
 				reduceThread.join();
 			} catch (InterruptedException e) {
@@ -48,8 +48,6 @@ public class MapReduce {
 				e.printStackTrace();
 			}
 	    }
-	    
-	    
 	    
 	    // if maps are all done
 	    // loop through reduce threads
