@@ -18,7 +18,9 @@ public class Map extends Thread {
 	public void run() {
 		try {
 			while ((word = reader.readLine()) != null) {
-				//hash function here?
+				//hashing function to determine which reduce thread to send word to
+				int reduceThreadReciever = Character.getNumericValue(word.toLowerCase().charAt(0) % reduces.size()+1);
+				reduces.get(reduceThreadReciever).invertedIndex(fileName, lineNum, word);
 
 				
 			}
