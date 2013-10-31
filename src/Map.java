@@ -5,10 +5,16 @@ public class Map extends Thread {
 	private BoundedBuffer buffer;
 	private BufferedReader reader;
 	private String word;
-	ArrayList<Reduce> reduces;
+	private String fileName;
+	private int lineNumber;
+	private int reduceThreadRecieverID;
+	private ArrayList<Reduce> reduces;
+	
  
 	public Map(String fileName, ArrayList<Reduce> reduces) throws FileNotFoundException {
 		this.reduces= reduces;
+		this.fileName = fileName;
+		this.lineNumber = 0;
 		reader = new BufferedReader(new FileReader(fileName));
 		
 		
@@ -19,8 +25,9 @@ public class Map extends Thread {
 		try {
 			while ((word = reader.readLine()) != null) {
 				//hashing function to determine which reduce thread to send word to
-				int reduceThreadReciever = Character.getNumericValue(word.toLowerCase().charAt(0) % reduces.size()+1);
-				reduces.get(reduceThreadReciever).invertedIndex(fileName, lineNum, word);
+				reduceThreadRecieverID = Character.getNumericValue(word.toLowerCase().charAt(0) % reduces.size()+1);
+				reduces.get(reduceThreadRecieverID).invertedIndex(fileName, lineNumber, word);
+				lineNumber++;
 
 				
 			}
