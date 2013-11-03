@@ -26,7 +26,7 @@ public class Map extends Thread {
 			while ((word = reader.readLine()) != null) {
 				//hashing function to determine which reduce thread to send word to
 				reduceThreadRecieverID = Character.getNumericValue(word.toLowerCase().charAt(0) % reduces.size()+1);
-				System.out.println(reduceThreadRecieverID);
+//				System.out.println(reduceThreadRecieverID);
 				reduces.get(reduceThreadRecieverID).invertedIndex(fileName, lineNumber, word);
 				lineNumber++;
 
