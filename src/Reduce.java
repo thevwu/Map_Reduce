@@ -5,7 +5,6 @@ public class Reduce extends Thread {
 	private BoundedBuffer buffer;
 	private int num;
 	private HashMap<String, ArrayList<Tuple>> invertedIndex;
-	;
 
  
 	public Reduce(int num) {
@@ -26,7 +25,6 @@ public class Reduce extends Thread {
 	
 	public void invertedIndex(String fileName, int lineNum, String word){
 		if(invertedIndex.containsValue(word)){
-			
 			//if the word is already entered, add a new tuple to that word's arraylist
 			invertedIndex.get(word).add(new Tuple(fileName, lineNum));
 

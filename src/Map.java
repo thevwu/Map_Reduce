@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Map extends Thread {
 	private BoundedBuffer buffer;
@@ -9,6 +10,7 @@ public class Map extends Thread {
 	private int lineNumber;
 	private int reduceThreadRecieverID;
 	private ArrayList<Reduce> reduces;
+
 	
  
 	public Map(String fileName, ArrayList<Reduce> reduces) throws FileNotFoundException {
@@ -16,9 +18,7 @@ public class Map extends Thread {
 		this.fileName = fileName;
 		this.lineNumber = 0;
 		reader = new BufferedReader(new FileReader(fileName));
-		
-		
-		
+
 	}
  
 	public void run() {
@@ -26,6 +26,7 @@ public class Map extends Thread {
 			while ((word = reader.readLine()) != null) {
 				//hashing function to determine which reduce thread to send word to
 				reduceThreadRecieverID = Character.getNumericValue(word.toLowerCase().charAt(0) % reduces.size()+1);
+				System.out.println(reduceThreadRecieverID);
 				reduces.get(reduceThreadRecieverID).invertedIndex(fileName, lineNumber, word);
 				lineNumber++;
 
